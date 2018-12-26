@@ -7,23 +7,22 @@ public abstract class Animal implements EtreVivant{
 	protected char sexe;
 	protected boolean famine;
 	protected Jungle jungle;
+	
 
 	public EtreVivant seNourrir(EtreVivant ev) {
 		return ev;
 	}
 
-	public abstract void seDeplacer(int x, int y);
+	public abstract void seDeplacer(Position p);
 
-	public Animal seReproduire() {
-		return null;
-		
-	}
+	public abstract Animal seReproduire();
 
 	public void mourrir() {
-		
+		jungle.supprimer(this);
 	}
 	
-	public void collision(Animal a) {
+	public boolean collision(Animal a) {
+		return famine;
 		
 	}
 

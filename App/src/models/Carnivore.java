@@ -1,20 +1,29 @@
 package models;
 
 public class Carnivore extends Animal{
+	
+	public Carnivore() {
+		this.age = 0;
+		this.famine = false;
+		if((int)Math.random() == 0)
+			this.sexe = 'M';
+		else
+			this.sexe = 'F';
+	}
 
 	public Animal seNourrir(Animal a) {
 		return a;
 		
 	}
 
-	public void seDeplacer(int x, int y) {
+	public void seDeplacer(Position p) {
 		
 		
 	}
 
-	public Animal seReproduire() {
+	public Carnivore seReproduire() {
+		return new Carnivore();
 		
-		return null;
 	}
 
 	public void mourrir() {

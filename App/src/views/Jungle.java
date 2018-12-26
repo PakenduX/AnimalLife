@@ -1,12 +1,14 @@
 package views;
 
+import models.Animal;
+
 public class Jungle {
 
-	public void ajouter() {
+	public void ajouter(Animal a) {
 		
 	}
 	
-	public void supprimer() {
+	public void supprimer(Animal a) {
 		
 	}
 }

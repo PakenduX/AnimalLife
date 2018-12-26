@@ -6,7 +6,7 @@ public class Omnivore extends Animal{
 		
 	}
 
-	public void seDeplacer(int x, int y) {
+	public void seDeplacer(Position p) {
 		
 	}
 
