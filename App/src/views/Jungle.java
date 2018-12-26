@@ -1,4 +1,4 @@
-package models;
+package views;
 
 public class Jungle {
 

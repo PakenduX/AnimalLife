@@ -2,26 +2,25 @@ package models;
 
 public class Carnivore extends Animal{
 
-	public void seNourrir() {
+	public Animal seNourrir(Animal a) {
+		return a;
 		
 	}
 
-	@Override
 	public void seDeplacer(int x, int y) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
-	@Override
-	public EtreVivant seReproduire() {
-		// TODO Auto-generated method stub
+	public Animal seReproduire() {
+		
 		return null;
 	}
 
-	@Override
 	public void mourrir() {
-		// TODO Auto-generated method stub
+		
 		
 	}
+
 
 }

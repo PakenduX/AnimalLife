@@ -1,16 +1,30 @@
 package models;
 
+import views.Jungle;
+
 public abstract class Animal implements EtreVivant{
 	protected int age;
 	protected char sexe;
 	protected boolean famine;
+	protected Jungle jungle;
 
-	public abstract void seNourrir();
+	public EtreVivant seNourrir(EtreVivant ev) {
+		return ev;
+	}
 
 	public abstract void seDeplacer(int x, int y);
 
-	public abstract EtreVivant seReproduire();
+	public Animal seReproduire() {
+		return null;
+		
+	}
 
-	public abstract void mourrir();
+	public void mourrir() {
+		
+	}
+	
+	public void collision(Animal a) {
+		
+	}
 
 }
