@@ -4,11 +4,11 @@ import models.Animal;
 
 public class Jungle {
 
-	public void ajouter(Animal a) {
+	public void ajouter(Animal<?> a) {
 		
 	}
 	
-	public void supprimer(Animal a) {
+	public void supprimer(Animal<?> a) {
 		
 	}
 }

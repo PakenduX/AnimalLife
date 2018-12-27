@@ -1,21 +1,26 @@
 package models;
 
-public class Omnivore extends Animal{
+public class Omnivore extends Animal<Omnivore>{
 
-	public void seNourrir() {
-		
+	public Omnivore() {
+		super();
+		this.position = new Position(2, 2);
+	}
+	
+	public Omnivore seNourrir(Omnivore omn) {
+		this.age++;
+		return omn;
 	}
 
-	public void seDeplacer(Position p) {
-		
+	public void seDeplacer() {
+		this.position.setX(this.position.getX() + 1);
+		this.position.setY(this.position.getY() + 1);
+		System.out.println("Deplacement du Omnivore x = " + this.position.getX() + " y = "+ this.position.getY());
+	
 	}
 
-	public Animal seReproduire() {
-		return null;
-	}
-
-	public void mourrir() {
-		
+	public Omnivore seReproduire() {
+		return new Omnivore();
 	}
 
 }

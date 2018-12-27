@@ -1,35 +1,25 @@
 package models;
 
-public class Carnivore extends Animal{
-	
+public class Carnivore extends Animal<Carnivore>{
+
 	public Carnivore() {
-		this.age = 0;
-		this.famine = false;
-		if((int)Math.random() == 0)
-			this.sexe = 'M';
-		else
-			this.sexe = 'F';
+		super();
+		this.position = new Position(1, 1);
 	}
-
-	public Animal seNourrir(Animal a) {
+	public Carnivore seNourrir(Carnivore a) {
+		this.age++;
 		return a;
-		
 	}
 
-	public void seDeplacer(Position p) {
-		
-		
+	public void seDeplacer() {
+		this.position.setX(this.position.getX() + 1);
+		this.position.setY(this.position.getY() + 1);
+		System.out.println("Deplacement du carnivore x = " + this.position.getX() + " y = "+ this.position.getY());
 	}
 
 	public Carnivore seReproduire() {
 		return new Carnivore();
 		
 	}
-
-	public void mourrir() {
-		
-		
-	}
-
 
 }

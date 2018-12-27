@@ -1,9 +1,9 @@
 package models;
 
-public interface EtreVivant {
+public interface EtreVivant<E> {
 	
-	public EtreVivant seNourrir(EtreVivant ev);
-	public void seDeplacer(Position p);
-	public EtreVivant seReproduire();
-	public void mourrir();
+	public E seNourrir(E ev);
+	public void seDeplacer();
+	public E seReproduire();
+	public void mourrir(int index);
 }
