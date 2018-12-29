@@ -1,16 +1,34 @@
 package models;
 
+/**
+ * La classe représentant un Omnivore
+ * @author Équipe Jungle
+ *
+ */
 public class Omnivore extends Animal<Omnivore>{
 
 	public Omnivore() {
 		super();
 		this.position = new Position(2, 2);
 	}
-	
-	public Omnivore seNourrir(Omnivore omn) {
+
+	public void seNourrir(Animal<?> carn) {
 		this.age++;
-		return omn;
+		carn.mourrir(carn.getIndex());
+		System.out.println("Omnivore se nourrit de "+ carn.getClass().getName() + " son age vaut = "+ this.age);
 	}
+
+	public void seNourrir(Herbe herb){
+		if(herb instanceof HerbeNormale)
+			this.age++;
+		else
+			this.mourrir(this.getIndex());
+
+		herb.disparaitre(herb.getIndex());
+		System.out.println("Omnivore se nourrit de "+ herb.getClass().getName());
+	}
+
+	public void seNourrir(EtreVivant<?> ev) {}
 
 	public void seDeplacer() {
 		this.position.setX(this.position.getX() + 1);

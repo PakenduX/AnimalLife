@@ -2,6 +2,11 @@ package models;
 
 import java.util.ArrayList;
 
+/**
+ * La classe générique abstraite représentant un Animal
+ * @author Équipe Jungle
+ * @param <E> le type d'animal
+ */
 public abstract class Animal<E> implements EtreVivant<E>{
 	protected int age;
 	protected char sexe;
@@ -9,19 +14,22 @@ public abstract class Animal<E> implements EtreVivant<E>{
 	protected Position position;
 	protected boolean estVivant;
 	protected static ArrayList<Animal<?>> collec_anim = new ArrayList<>();
-	
-	public Animal() {
-		this.age = 0;
+	//L'indice de l'objet dans la collection des animaux
+	protected int index;
+
+
+    public Animal() {
+		this.age = 10;
 		this.famine = false;
 		this.estVivant = true;
 		int r = (int)(Math.random()*4);
-		System.out.println("random = "+r);
 		if( r >= 0 && r < 2)
 			this.sexe = 'M';
 		else
 			this.sexe = 'F';
 		
 		collec_anim.add(this);
+		this.index = collec_anim.size() - 1;
 	}
 
 	public char getSexe() {
@@ -40,7 +48,7 @@ public abstract class Animal<E> implements EtreVivant<E>{
 		Animal.collec_anim = collec_anim;
 	}
 
-	public abstract E seNourrir(E ev);
+	public abstract void seNourrir(Animal<?> ev);
 
 	public int getAge() {
 		return age;
@@ -56,12 +64,14 @@ public abstract class Animal<E> implements EtreVivant<E>{
 	
 	/**
 	 * Quand un animal meurt, on le supprime de la collections
-	 * d'animaux.
+	 * d'animaux et on le met à la position (-1, -1).
 	 * @param index l'indice de l'animal dans la collection
 	 */
 	public void mourrir(int index) {
 		estVivant = false;
 		collec_anim.remove(index);
+		gerer_index(index);
+		setPosition(new Position(-1, -1));
 		System.out.println("Element à l'indice "+index + " est dead");
 	}
 	/**
@@ -76,9 +86,15 @@ public abstract class Animal<E> implements EtreVivant<E>{
 				&& Math.abs(this.position.getY() - a.position.getY()) < 5;
 		
 	}
+
+	public boolean proche_nourriture(Position p){
+		return Math.abs(this.position.getX() - p.getX()) < 5
+				&& Math.abs(this.position.getY() - p.getY()) < 5;
+	}
 	
-	public void boire(Eau o) {
-		o.setQuantite(o.getQuantite() - 1);
+	public void boire() {
+		Eau.setQuantite(Eau.getQuantite() - 1);
+		System.out.println(this.getClass().getName() + " a bu et la quantite restante est = "+ Eau.getQuantite());
 	}
 	
 	/**
@@ -88,6 +104,43 @@ public abstract class Animal<E> implements EtreVivant<E>{
 	 */
 	public boolean meme_sexe(Animal<?> a) {
 		return this.sexe == a.sexe;
+	}
+
+	/**
+	 * La fonction qui détermine si deux animaux sont de la même espèce
+	 * dans notre cas s'ils sont tous les deux carnivores, herbivores ou
+	 * omnivores
+	 * @param a
+	 * @return true or false
+	 */
+	public boolean meme_espece(Animal<?> a){
+		return ((this instanceof Carnivore) && (a instanceof Carnivore)) ||
+				((this instanceof Herbivore) && (a instanceof Herbivore)) ||
+				((this instanceof Omnivore) && (a instanceof Omnivore));
+	}
+
+	/**
+	 * Cette fonction teste si l'animal courant est un carnivore.
+	 * @return true or false.
+	 */
+	public boolean isCarnivore(){
+		return this instanceof Carnivore;
+	}
+
+	/**
+	 * Cette fonction teste si l'animal courant est un herbivore.
+	 * @return true or false.
+	 */
+	public boolean isHerbivore(){
+		return this instanceof Herbivore;
+	}
+
+	/**
+	 * Cette fonction teste si l'animal courant est un omnivore.
+	 * @return true or false.
+	 */
+	public boolean isOmnivore(){
+		return this instanceof Omnivore;
 	}
 	
 	/**
@@ -105,6 +158,29 @@ public abstract class Animal<E> implements EtreVivant<E>{
 
 	public void setPosition(Position position) {
 		this.position = position;
+	}
+
+    public int getIndex() {
+        return index;
+    }
+
+	public void setIndex(int index) {
+		this.index = index;
+	}
+
+	public boolean estVivant(){
+		return estVivant;
+	}
+
+	/**
+	 * Cette fonction permet de décrementer les indices des animaux
+	 * qui suivent l'animal supprimé car après la suppression d'un élément
+	 * dans ArrayLIst les éléments sont décalés vers la gauche.
+	 * @param index l'indice de l'animal supprimé.
+	 */
+	public void gerer_index(int index) {
+		for (int i = index; i < collec_anim.size(); i++)
+			collec_anim.get(i).setIndex(i);
 	}
 
 }

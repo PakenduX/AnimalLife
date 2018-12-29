@@ -6,8 +6,8 @@ package models;
  */
 public class HerbeEmpoisonnee extends Herbe{
 	
-	public HerbeEmpoisonnee(int quantite) {
-		super(quantite);
+	public HerbeEmpoisonnee() {
+		super();
 	}
 
 }

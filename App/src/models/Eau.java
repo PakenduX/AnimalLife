@@ -2,18 +2,28 @@ package models;
 
 public class Eau {
 	
-	private int quantite;
-	
-	public Eau(int quantite) {
-		this.quantite = quantite;
+	private static int quantite;
+	private static Position position;
+
+	public Eau() {
+		quantite = 10;
+		position = new Position(0, 0);
 	}
 
-	public int getQuantite() {
+	public static int getQuantite() {
 		return quantite;
 	}
 
-	public void setQuantite(int quantite) {
-		this.quantite = quantite;
+	public static void setQuantite(int q) {
+		quantite = q;
+	}
+
+	public static void setPosition(Position p) {
+		position = p;
+	}
+
+	public static Position getPosition() {
+		return position;
 	}
 	
 	
