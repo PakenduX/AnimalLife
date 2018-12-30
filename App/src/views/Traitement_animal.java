@@ -1,49 +1,42 @@
 package views;
+
+import controllers.Jeu;
 import models.Animal;
+
+import javax.swing.*;
+
+
 public class Traitement_animal implements Runnable {
-	private Animal a;
-	private Panneau_animaux pan_animal;
-	private Panneau_Jungle Jungle;
-	private int h;
+	private Animal<?> a;
+	private JLabel animal;
+	private Panneau_Jungle panneau;
+
+	public Traitement_animal(Animal<?> a, JLabel animal, Panneau_Jungle panneau){
+		this.animal = animal;
+		this.panneau = panneau;
+		this.a = a;
+	}
 
 	public void run() {
-
-		for(;;)
-		{
-			h=pan_animal.getI();
-			pan_animal.Init();
-			for(int i=0;i<3;i++)
-			{
-				if(h==3)
-				{
-					h=1;
-
-				}
-				else
-					h=h+1;
-				System.out.println("l'image executée est "+h+"pour l'animale "+a+"a la position"+a.getPosition().getX()+" "+a.getPosition().getY());
-				a.seDeplacer();
-				pan_animal.setX(a.getPosition().getX());
-				pan_animal.setY(a.getPosition().getY());
-				pan_animal.repaint();
-				pan_animal.setI(h);
-				//Jungle.repaint();
-
-				try {
-					Thread.sleep(200);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-
+		int i = 2;
+		while(true) {
+			if (i == 3)
+				i = 1;
+			else
+				i++;
+			animal.setIcon(new ImageIcon("/home/pap-c/AnimalLife/App/images/pas_" + i + ".png"));
+			a.seDeplacer();
+			Jeu.traiter_collisions();
+			animal.setLocation(a.getPosition().getX(), a.getPosition().getY());
+			panneau.repaint();
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
 		}
 	}
 
-	public Traitement_animal(Animal a,Panneau_animaux pan,Panneau_Jungle jungle) {
-		super();
-		this.a = a;
-		this.pan_animal=pan;
-		this.Jungle=jungle;
-	}
+
 }
 

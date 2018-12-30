@@ -28,8 +28,8 @@ public class Carnivore extends Animal<Carnivore>{
 	}
 
 	public void seDeplacer() {
-		this.position.setX(this.position.getX() + 10);
-		this.position.setY(this.position.getY() + 1);
+		this.position.setX(this.position.getX());
+		this.position.setY(this.position.getY() + 5);
 		System.out.println("Deplacement du carnivore x = " + this.position.getX() + " y = "+ this.position.getY());
 	}
 

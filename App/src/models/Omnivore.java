@@ -31,8 +31,8 @@ public class Omnivore extends Animal<Omnivore>{
 	public void seNourrir(EtreVivant<?> ev) {}
 
 	public void seDeplacer() {
-		this.position.setX(this.position.getX() + 1);
-		this.position.setY(this.position.getY() + 1);
+		this.position.setX(this.position.getX() + 5);
+		this.position.setY(this.position.getY() + 5);
 		System.out.println("Deplacement du Omnivore x = " + this.position.getX() + " y = "+ this.position.getY());
 	
 	}

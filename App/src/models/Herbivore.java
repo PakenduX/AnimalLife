@@ -37,8 +37,8 @@ public class Herbivore extends Animal<Herbivore>{
 	}
 
 	public void seDeplacer() {
-		this.position.setX(this.position.getX() + 6);
-		this.position.setY(this.position.getY() );
+		this.position.setX(this.position.getX() + 5);
+		this.position.setY(this.position.getY());
 		System.out.println("Deplacement du Herbivore x = " + this.position.getX() + " y = "+ this.position.getY());
 	}
 

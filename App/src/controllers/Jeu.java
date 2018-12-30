@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import models.*;
+import views.Jungle;
+
+import javax.swing.*;
 
 public class Jeu {
 
@@ -11,7 +14,9 @@ public class Jeu {
 	 * La fonction qui va traiter la collision entre les différents animaux
 	 * de la jungle.
 	 */
-	public void traiter_collisions() {
+	Jungle jungle = new Jungle();
+
+	public static void traiter_collisions() {
 		ArrayList<Animal<?>> coll_anim = Animal.getCollec_anim();
 		ArrayList<Herbe> coll_herb = Herbe.getColl_herb();
 		int quantite_o = Eau.getQuantite();
@@ -104,34 +109,22 @@ public class Jeu {
 	
 	public void lancer() {
 		Animal<Carnivore> carn = new Carnivore();
-		carn.setPosition(new Position(20, 9));
 		Animal<Herbivore> herb = new Herbivore();
-		herb.setPosition(new Position(10, 4));
 		Animal<Omnivore> omn = new Omnivore();
-		omn.setPosition(new Position(15, 10));
 
 		Animal<Carnivore> carn2 = new Carnivore();
-		carn2.setPosition(new Position(55, 5));
 		Animal<Herbivore> herb2 = new Herbivore();
-		herb2.setPosition(new Position(27, 1));
 		Animal<Omnivore> omn2 = new Omnivore();
-		omn2.setPosition(new Position(13, 30));
 
 		Animal<Carnivore> carn3 = new Carnivore();
-		carn3.setPosition(new Position(20, 23));
 		Animal<Herbivore> herb3 = new Herbivore();
-		herb3.setPosition(new Position(29, 39));
 		Animal<Omnivore> omn3 = new Omnivore();
-		herb3.setPosition(new Position(45, 40));
 
 		Animal<Carnivore> carn4 = new Carnivore();
-		carn4.setPosition(new Position(10, 5));
 		Animal<Herbivore> herb4 = new Herbivore();
-		herb4.setPosition(new Position(11, 14));
 		Animal<Omnivore> omn4 = new Omnivore();
-		omn4.setPosition(new Position(5, 9));
 
-		Eau.setPosition(new Position(2, 5));
+		Eau.setPosition(new Position(23, 50));
 		Herbe h1 = new HerbeNormale();
 		h1.setPosition(new Position(1, 1));
 		Herbe h2 = new HerbeNormale();
@@ -140,10 +133,21 @@ public class Jeu {
 		h3.setPosition(new Position(3, 3));
 		Herbe h4 = new HerbeEmpoisonnee();
 		h4.setPosition(new Position(2, 1));
-		
-		int i = 0;
-		while(i < 10) {
-			if (carn.estVivant())
+
+		ArrayList<Animal<?>> coll_anim = Animal.getCollec_anim();
+		for (int i = 0; i < coll_anim.size(); i++){
+			jungle.placer_animal(coll_anim.get(i), new JLabel(new ImageIcon("/home/pap-c/AnimalLife/App/images/pas_1.png")));
+			System.out.println("je suis la");
+		}
+		/*jungle.getContentPane().repaint();
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		jungle.getContentPane().removeAll();*/
+		jungle.deplacer();
+			/*if (carn.estVivant())
 				carn.seDeplacer();
 			if (herb.estVivant())
 				herb.seDeplacer();
@@ -169,11 +173,14 @@ public class Jeu {
 			if (herb4.estVivant())
 				herb4.seDeplacer();
 			if (omn4.estVivant())
-				omn4.seDeplacer();
+				omn4.seDeplacer();*/
+			//i++;
+		//}
+	}
 
-			traiter_collisions();
-			i++;
-		}
+	public static void main(String[] args) {
+		new Jeu().lancer();
+
 	}
 
 }
