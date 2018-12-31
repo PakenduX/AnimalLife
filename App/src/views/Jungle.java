@@ -2,6 +2,7 @@ package views;
 
 import javax.swing.*;
 import models.Animal;
+import models.Herbe;
 import models.Position;
 
 import java.awt.*;
@@ -49,8 +50,8 @@ public class Jungle extends JFrame {
 		for(int j = 0; j < coll_anim.size(); j++){
 			ani_courant = coll_anim.get(j);
 			animal_label = new JLabel(new ImageIcon("/home/pap-c/AnimalLife/App/images/pas_1.png"));
+			ajouter(animal_label, ani_courant.getPosition().getX(), ani_courant.getPosition().getY());
 			if(ani_courant.estVivant()) {
-				ajouter(animal_label, ani_courant.getPosition().getX(), ani_courant.getPosition().getY());
 				new Thread(new Traitement_animal(ani_courant, animal_label, panneau)).start();
 			}
 
@@ -69,7 +70,8 @@ public class Jungle extends JFrame {
 			x = (int)((this.getWidth()*2/3) + Math.random()*(this.getWidth()));
 
 		a.setPosition(new Position(x, y));
-		ajouter(animal_icon, x, y);
+		//ajouter(animal_icon, x, y);
 	}
+
 
 }

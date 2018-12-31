@@ -1,5 +1,7 @@
 package views;
 
+import controllers.Jeu;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,9 +14,9 @@ import java.awt.event.ActionListener;
  */
 public class Options extends JFrame implements ActionListener {
 
-    private static int nbCarn, nbHerb, nbOmn, nbHerbv;
+    private static int nbCarn, qHerbN, qHerbE, nbOmn, nbHerbv;
 
-    JTextField nbCarn_field, nbHerbv_field, nbOmn_field, qHerb_field;
+    JTextField nbCarn_field, nbHerbv_field, nbOmn_field, qHerbN_field, qHerbE_field;
 
     public Options(){
         this.setTitle("Choisir");
@@ -31,7 +33,8 @@ public class Options extends JFrame implements ActionListener {
         JLabel nbCarn_label = new JLabel("Nombre de carnivore :");
         JLabel nbHerbv_label = new JLabel("Nombre d'herbivore :");
         JLabel nbOmn_label = new JLabel("Nombre d'omnivore :");
-        JLabel qHerb_label = new JLabel("Quantité d'herbe :");
+        JLabel qHerbN_label = new JLabel("Qtité d'herbe normale :");
+        JLabel qHerbE_label = new JLabel("Qtité d'herbe empoisonnée:");
         //JLabel qEau_label = new JLabel("Quantité d'eau :");
         //JLabel en_l = new JLabel("en litres ");
 
@@ -39,7 +42,8 @@ public class Options extends JFrame implements ActionListener {
         nbCarn_field = new JTextField();
         nbHerbv_field = new JTextField();
         nbOmn_field = new JTextField();
-        qHerb_field = new JTextField();
+        qHerbN_field = new JTextField();
+        qHerbE_field = new JTextField();
         //JTextField qEau_field = new JTextField();
 
         //Bouton lancer
@@ -62,9 +66,12 @@ public class Options extends JFrame implements ActionListener {
         nbOmn_label.setFont(f);
         nbOmn_label.setBounds(10, 200, 230, 30);
         nbOmn_field.setBounds(240, 200, 110, 30);
-        qHerb_label.setFont(f);
-        qHerb_label.setBounds(10, 250, 230, 30);
-        qHerb_field.setBounds(240, 250, 110, 30);
+        qHerbN_label.setFont(f);
+        qHerbN_label.setBounds(10, 250, 230, 30);
+        qHerbN_field.setBounds(240, 250, 110, 30);
+        qHerbE_label.setFont(f);
+        qHerbE_label.setBounds(10, 300, 230, 30);
+        qHerbE_field.setBounds(240, 300, 110, 30);
         //qEau_label.setFont(f);
         //qEau_label.setBounds(10, 300, 230, 30);
         //qEau_field.setBounds(240, 300, 110, 30);
@@ -82,8 +89,10 @@ public class Options extends JFrame implements ActionListener {
         this.add(nbHerbv_field);
         this.add(nbOmn_label);
         this.add(nbOmn_field);
-        this.add(qHerb_label);
-        this.add(qHerb_field);
+        this.add(qHerbN_label);
+        this.add(qHerbN_field);
+        this.add(qHerbE_label);
+        this.add(qHerbE_field);
         //this.add(qEau_label);
         //this.add(qEau_field);
         //this.add(en_l);
@@ -98,8 +107,12 @@ public class Options extends JFrame implements ActionListener {
         return nbCarn;
     }
 
-    public static int getNbHerb() {
-        return nbHerb;
+    public static int getQHerbN() {
+        return qHerbN;
+    }
+
+    public static int getQHerbE() {
+        return qHerbE;
     }
 
     public static int getNbOmn() {
@@ -119,8 +132,10 @@ public class Options extends JFrame implements ActionListener {
         try{
             nbCarn = Integer.parseInt(nbCarn_field.getText());
             nbHerbv = Integer.parseInt(nbHerbv_field.getText());
-            nbHerb = Integer.parseInt(qHerb_field.getText());
+            qHerbN = Integer.parseInt(qHerbN_field.getText());
+            qHerbE = Integer.parseInt(qHerbE_field.getText());
             nbOmn = Integer.parseInt(nbOmn_field.getText());
+            new Jeu().lancer();
 
         }catch (NumberFormatException e){
             JOptionPane.showMessageDialog(this, "Veuillez saisir une valeur entière svp", "Erreur", JOptionPane.ERROR_MESSAGE);

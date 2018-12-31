@@ -36,7 +36,7 @@ public class Herbivore extends Animal<Herbivore>{
 		System.out.println("Herbivore se nourrit de "+ omn.getClass().getName() + " son age vaut = "+ this.age);
 	}
 
-	public void seDeplacer() {
+	public void seDeplacer(int xMax, int yMax) {
 		this.position.setX(this.position.getX() + 5);
 		this.position.setY(this.position.getY());
 		System.out.println("Deplacement du Herbivore x = " + this.position.getX() + " y = "+ this.position.getY());

@@ -19,7 +19,7 @@ public abstract class Animal<E> implements EtreVivant<E>{
 
 
     public Animal() {
-		this.age = 10;
+		this.age = 0;
 		this.famine = false;
 		this.estVivant = true;
 		int r = (int)(Math.random()*4);
@@ -58,7 +58,7 @@ public abstract class Animal<E> implements EtreVivant<E>{
 		this.age = age;
 	}
 
-	public abstract void seDeplacer();
+	public abstract void seDeplacer(int xMax, int yMax);
 
 	public abstract E seReproduire();
 	

@@ -25,7 +25,7 @@ public class Traitement_animal implements Runnable {
 			else
 				i++;
 			animal.setIcon(new ImageIcon("/home/pap-c/AnimalLife/App/images/pas_" + i + ".png"));
-			a.seDeplacer();
+			a.seDeplacer(panneau.getWidth(), panneau.getHeight());
 			Jeu.traiter_collisions();
 			animal.setLocation(a.getPosition().getX(), a.getPosition().getY());
 			panneau.repaint();
