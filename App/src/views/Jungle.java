@@ -1,9 +1,8 @@
 package views;
 
 import javax.swing.*;
-import models.Animal;
-import models.Herbe;
-import models.Position;
+
+import models.*;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -27,10 +26,10 @@ public class Jungle extends JFrame {
 
 	}
 	/*
-	 * la fonction qui ajoute le nouveau élement dans la fenetre du jeu
+	 * la fonction qui ajoute le nouvel élement dans la fenetre du jeu
 	 */
 	public void ajouter(JLabel animal, int x, int y) {
-		animal.setBounds(x, y, 80, 50);
+		animal.setBounds(x, y, 100, 70);
 		panneau.add(animal);
 
 		try {
@@ -52,7 +51,13 @@ public class Jungle extends JFrame {
 			animal_label = new JLabel(new ImageIcon("/home/pap-c/AnimalLife/App/images/pas_1.png"));
 			ajouter(animal_label, ani_courant.getPosition().getX(), ani_courant.getPosition().getY());
 			if(ani_courant.estVivant()) {
-				new Thread(new Traitement_animal(ani_courant, animal_label, panneau)).start();
+				if(ani_courant.isHerbivore())
+					new Thread(new TraitementHerbivore((Herbivore)ani_courant, animal_label, panneau)).start();
+				else if (ani_courant.isCarnivore())
+					new Thread(new TraitementCarnivore((Carnivore)ani_courant, animal_label, panneau)).start();
+				else
+					new Thread(new TraitementOmnivore((Omnivore) ani_courant, animal_label, panneau)).start();
+
 			}
 
 		}

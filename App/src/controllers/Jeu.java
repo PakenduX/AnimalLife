@@ -7,16 +7,17 @@ import models.*;
 import views.Jungle;
 import views.Options;
 
+import javax.crypto.spec.OAEPParameterSpec;
 import javax.swing.*;
 
 public class Jeu {
+
+	Jungle jungle = new Jungle();
 
 	/**
 	 * La fonction qui va traiter la collision entre les différents animaux
 	 * de la jungle.
 	 */
-	Jungle jungle = new Jungle();
-
 	public static void traiter_collisions() {
 		ArrayList<Animal<?>> coll_anim = Animal.getCollec_anim();
 		ArrayList<Herbe> coll_herb = Herbe.getColl_herb();
@@ -52,20 +53,14 @@ public class Jeu {
 							}
 							//Les deux animaux sont de même sexe.
 						} else {
-							if (ani.getAge() == anj.getAge()) {
-								if(ani.isCarnivore()) {
-									System.out.println("Reproduction");
-									((Carnivore) ani).seReproduire();
-								}
-								//fils.setPosition(new Position(ani.getPosition().getX() + 20, ani.getPosition().getY() + 10));
-
+							if (ani.getAge() > anj.getAge()) {
 								anj.mourrir(j);
 								System.out.println("ani est plus agé age = "+ani.getAge());
-                                System.out.println("La taille de la collection = "+ Animal.getCollec_anim());
+                                System.out.println("La taille de la collection = "+ Animal.getCollec_anim().size());
 							}else if (ani.getAge() < anj.getAge()) {
-								anj.mourrir(i);
+								ani.mourrir(i);
 								System.out.println("anj est plus agé age = "+anj.getAge());
-                                System.out.println("La taille de la collection = "+ Animal.getCollec_anim());
+                                System.out.println("La taille de la collection = "+ Animal.getCollec_anim().size());
 							}
 						}
 						//Les deux animaux ne sont pas de la même espèce
@@ -137,7 +132,7 @@ public class Jeu {
 		ArrayList<Animal<?>> coll_anim = Animal.getCollec_anim();
 
 		for (int i = 0; i < coll_anim.size(); i++)
-			jungle.placer_animal(coll_anim.get(i), new JLabel(new ImageIcon("/home/pap-c/AnimalLife/App/images/pas_1.png")));
+			jungle.placer_animal(coll_anim.get(i), new JLabel(new ImageIcon("/home/pkss/AnimalLife/App/images/pas_1.png")));
 
 		jungle.deplacer();
 

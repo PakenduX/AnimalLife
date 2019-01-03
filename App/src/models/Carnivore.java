@@ -7,8 +7,6 @@ package models;
  */
 public class Carnivore extends Animal<Carnivore>{
 
-	boolean forward = true;
-	boolean backward = false;
 	boolean ydecrement = false;
 
 	public Carnivore() {
@@ -41,30 +39,28 @@ public class Carnivore extends Animal<Carnivore>{
 		if(x <= 0 && y <= 0) {
 			this.position.setX(this.position.getX() + 5);
 			this.position.setY(this.position.getY() + 5);
-			forward = true;
-			backward = false;
 
 		}else if(x > 0 && y <= 0){
 			this.position.setY(this.position.getY() + 5);
 
 		}else if(x < 0 && y >= 0){
 			this.position.setX(this.position.getX() + 5);
-			forward = true;
-			backward = false;
+			deplacementVersDroite = true;
+			deplacementVersGauche = false;
 
 		}else if(x >= xMax && y >= yMax) {
 			this.position.setX(this.position.getX() - 5);
-			backward = true;
-			forward = false;
+			deplacementVersGauche = true;
+			deplacementVersDroite = false;
 			ydecrement = true;
 		}else if(x >= xMax && y < yMax) {
 			this.position.setX(this.position.getX() - 5);
-			backward = true;
-			forward = false;
+			deplacementVersGauche = true;
+			deplacementVersDroite = false;
 			ydecrement = true;
 
 		}else{
-			if(forward)
+			if(deplacementVersDroite)
 				this.position.setX(this.position.getX() + 5);
 			else
 				this.position.setX(this.position.getX() - 5);

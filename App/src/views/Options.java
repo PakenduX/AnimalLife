@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
  * La classe qui permet de lancer la première fenetre de
  * l'application pour saisir les données du jeu.
  * @author Équipe Jungle
+ *
  */
 public class Options extends JFrame implements ActionListener {
 
@@ -50,7 +51,7 @@ public class Options extends JFrame implements ActionListener {
         JButton lancer = new JButton("Lancer");
 
         //Side image
-        ImageIcon img = new ImageIcon("/home/pap-c/AnimalLife/App/images/animaux_jungle.jpg");
+        ImageIcon img = new ImageIcon("/home/pkss/AnimalLife/App/images/animaux_jungle.jpg");
         JLabel img_label = new JLabel(img);
 
         //Positionnement
@@ -135,6 +136,11 @@ public class Options extends JFrame implements ActionListener {
             qHerbN = Integer.parseInt(qHerbN_field.getText());
             qHerbE = Integer.parseInt(qHerbE_field.getText());
             nbOmn = Integer.parseInt(nbOmn_field.getText());
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             new Jeu().lancer();
 
         }catch (NumberFormatException e){

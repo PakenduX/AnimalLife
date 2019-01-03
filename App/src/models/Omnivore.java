@@ -7,6 +7,8 @@ package models;
  */
 public class Omnivore extends Animal<Omnivore>{
 
+	boolean xdecrement = false;
+
 	public Omnivore() {
 		super();
 		this.position = new Position(2, 2);
@@ -31,11 +33,19 @@ public class Omnivore extends Animal<Omnivore>{
 	public void seNourrir(EtreVivant<?> ev) {}
 
 	public void seDeplacer(int xMax, int yMax) {
-		this.position.setX(this.position.getX() + 5);
-		this.position.setY(this.position.getY() + 5);
-		System.out.println("Deplacement du Omnivore x = " + this.position.getX() + " y = "+ this.position.getY());
-	
-	}
+		int x = this.getPosition().getX();
+		int y = this.getPosition().getY();
+
+		if(x <= 0 && y <= 0){
+			this.setPosition(new Position(this.getPosition().getX() + 5, this.getPosition().getY() + 5));
+			deplacementVersBas = true;
+		}else if( x > 0 && y <= 0){
+				if(x >= xMax){
+					//TODO
+				}
+		}
+
+		}
 
 	public Omnivore seReproduire() {
 		return new Omnivore();

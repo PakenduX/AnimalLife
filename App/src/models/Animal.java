@@ -16,10 +16,15 @@ public abstract class Animal<E> implements EtreVivant<E>{
 	protected static ArrayList<Animal<?>> collec_anim = new ArrayList<>();
 	//L'indice de l'objet dans la collection des animaux
 	protected int index;
+	//Ces attributs définissent le sens de déplacement d'un animal
+	protected boolean deplacementVersDroite = true;
+	protected boolean deplacementVersGauche = false;
+	protected boolean deplacementVersHaut = false;
+	protected boolean deplacementVersBas = false;
 
 
     public Animal() {
-		this.age = 0;
+		this.age = (int)(Math.random()*(15) + 1);
 		this.famine = false;
 		this.estVivant = true;
 		int r = (int)(Math.random()*4);
@@ -149,7 +154,7 @@ public abstract class Animal<E> implements EtreVivant<E>{
 	 * @return true or false.
 	 */
 	public boolean adult() {
-		return this.age >= 1 && this.age <= 15;
+		return this.age >= 15 && this.age <= 50;
 	}
 
 	public Position getPosition() {
@@ -183,4 +188,19 @@ public abstract class Animal<E> implements EtreVivant<E>{
 			collec_anim.get(i).setIndex(i);
 	}
 
+	public boolean getDeplacementVersDroite() {
+		return deplacementVersDroite;
+	}
+
+	public boolean getDeplacementVersGauche() {
+		return deplacementVersGauche;
+	}
+
+	public boolean getDeplacementVersHaut() {
+		return deplacementVersHaut;
+	}
+
+	public boolean getDeplacementVersBas() {
+		return deplacementVersBas;
+	}
 }
