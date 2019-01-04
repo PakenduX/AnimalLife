@@ -88,8 +88,8 @@ public abstract class Animal<E> implements EtreVivant<E>{
 	 * @return true s'il y a collision, false sinon
 	 */
 	public boolean collision(Animal<?> a) {
-		return Math.abs(this.position.getX() - a.position.getX()) < 5
-				&& Math.abs(this.position.getY() - a.position.getY()) < 5;
+		return Math.abs(this.position.getX() - a.position.getX()) < 10
+				&& Math.abs(this.position.getY() - a.position.getY()) < 10;
 		
 	}
 

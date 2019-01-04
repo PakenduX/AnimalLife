@@ -21,13 +21,25 @@ public class TraitementOmnivore implements Runnable {
 
     public void run() {
         int i = 2;
+        int j = 10;
         while(true) {
-            if (i == 4)
-                i = 1;
-            else
-                i++;
+            if(a.getDeplacementVersBas()){
+                if (i == 4)
+                    i = 1;
+                else
+                    i++;
 
-            animal.setIcon(new ImageIcon("/home/pkss/AnimalLife/App/images/pas" + i + "_ours.png"));
+                animal.setIcon(new ImageIcon("/home/pkss/AnimalLife/App/images/pas" + i + "_ours.png"));
+
+            }else{
+                if (j == 12)
+                    j = 9;
+                else
+                    j++;
+
+                animal.setIcon(new ImageIcon("/home/pkss/AnimalLife/App/images/pas" + j + "_ours.png"));
+
+            }
             a.seDeplacer(panneau.getWidth(), panneau.getHeight());
             Jeu.traiter_collisions();
             animal.setLocation(a.getPosition().getX(), a.getPosition().getY());
