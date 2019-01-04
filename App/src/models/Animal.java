@@ -21,6 +21,7 @@ public abstract class Animal<E> implements EtreVivant<E>{
 	protected boolean deplacementVersGauche = false;
 	protected boolean deplacementVersHaut = false;
 	protected boolean deplacementVersBas = false;
+	protected final int OFFSET = 10;
 
 
     public Animal() {

@@ -32,11 +32,11 @@ public class Jungle extends JFrame {
 		animal.setBounds(x, y, 100, 70);
 		panneau.add(animal);
 
-		try {
+		/*try {
 			Thread.sleep(100);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}*/
 
 	}
 

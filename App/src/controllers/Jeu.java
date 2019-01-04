@@ -31,7 +31,7 @@ public class Jeu {
 			 //On teste son éventuelle collision avec tous les autres.
 			for(int j = 1; j < coll_anim.size(); j++) {
 				anj = coll_anim.get(j);
-				System.out.println("La taille de la collection = "+ Animal.getCollec_anim().size());
+				//System.out.println("La taille de la collection = "+ Animal.getCollec_anim().size());
 				if(ani.collision(anj)) {
 					System.out.println("Collision détectée");
 					if(ani.meme_espece(anj)) {
@@ -56,11 +56,11 @@ public class Jeu {
 							if (ani.getAge() > anj.getAge()) {
 								anj.mourrir(j);
 								System.out.println("ani est plus agé age = "+ani.getAge());
-                                System.out.println("La taille de la collection = "+ Animal.getCollec_anim().size());
+                                //System.out.println("La taille de la collection = "+ Animal.getCollec_anim().size());
 							}else if (ani.getAge() < anj.getAge()) {
 								ani.mourrir(i);
 								System.out.println("anj est plus agé age = "+anj.getAge());
-                                System.out.println("La taille de la collection = "+ Animal.getCollec_anim().size());
+                                //System.out.println("La taille de la collection = "+ Animal.getCollec_anim().size());
 							}
 						}
 						//Les deux animaux ne sont pas de la même espèce
@@ -70,7 +70,7 @@ public class Jeu {
 								ani.seNourrir(anj);
 							else
 								anj.seNourrir(ani);
-                            System.out.println("La taille de la collection = "+ Animal.getCollec_anim());
+                            //System.out.println("La taille de la collection = "+ Animal.getCollec_anim());
 						}else if(ani.isHerbivore()){
 							if(anj.isCarnivore())
 								anj.seNourrir(ani);
@@ -78,7 +78,7 @@ public class Jeu {
 								ani.seNourrir(anj);
 								System.out.println("anj est etre omnivore, il est "+anj.getClass().getName());
 							}
-                            System.out.println("La taille de la collection = "+ Animal.getCollec_anim().size());
+                            //System.out.println("La taille de la collection = "+ Animal.getCollec_anim().size());
 						}else{
 							if(anj.isCarnivore())
 								ani.seNourrir(anj);
@@ -86,7 +86,7 @@ public class Jeu {
 								anj.seNourrir(ani);
 								System.out.println("ani est etre omnivore, il est "+ani.getClass().getName());
 							}
-                            System.out.println("La taille de la collection = "+ Animal.getCollec_anim().size());
+                            //System.out.println("La taille de la collection = "+ Animal.getCollec_anim().size());
 						}
 					}
 				}

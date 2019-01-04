@@ -8,6 +8,7 @@ package models;
 public class Omnivore extends Animal<Omnivore>{
 
 	boolean xdecrement = false;
+	boolean xincrement = false;
 
 	public Omnivore() {
 		super();
@@ -36,16 +37,77 @@ public class Omnivore extends Animal<Omnivore>{
 		int x = this.getPosition().getX();
 		int y = this.getPosition().getY();
 
+		if(xdecrement)
+			this.position.setX(this.position.getX() - OFFSET);
+
+		if(xincrement)
+			this.position.setX(this.position.getX() + 20);
+
 		if(x <= 0 && y <= 0){
-			this.setPosition(new Position(this.getPosition().getX() + 5, this.getPosition().getY() + 5));
+			this.position.setY(this.position.getY() + OFFSET);
 			deplacementVersBas = true;
+			deplacementVersHaut = false;
+			xincrement = true;
+			xdecrement = false;
 		}else if( x > 0 && y <= 0){
-				if(x >= xMax){
-					//TODO
-				}
-		}
+			//Pour pouvoir se décaler de la droite vers la gauche ou vice versa
+			// il faut tester la distance de la position actuelle par rapport à 0
+			// et à xMax.
+				if(x > Math.abs(x - xMax))
+					xdecrement = true;
+				else
+					xincrement = true;
+
+			deplacementVersBas = true;
+			deplacementVersHaut = false;
+			this.position.setY(this.position.getY() + OFFSET);
+		}else if(y > 0 && x <= 0){
+			if(y >= yMax){
+				this.position.setY(this.position.getY() - OFFSET);
+				deplacementVersHaut = true;
+				deplacementVersBas = false;
+			}else{
+				if(deplacementVersHaut)
+					this.position.setY(this.position.getY() - OFFSET);
+				else
+					this.position.setY(this.position.getY() + OFFSET);
+			}
+			xincrement = true;
+			xdecrement = false;
+		}else if(x >= xMax && y >= yMax){
+			xdecrement = true;
+			xincrement = false;
+			deplacementVersHaut = true;
+			deplacementVersBas = false;
+			this.position.setY(this.position.getY() - OFFSET);
+
+		}else if(x < xMax && y >= yMax){
+			deplacementVersHaut = true;
+			deplacementVersBas = false;
+			this.position.setY(this.position.getY() - OFFSET);
+			if(x > Math.abs(x - xMax))
+				xdecrement = true;
+			else
+				xincrement = true;
+		}else if(x >= xMax && y < yMax){
+			xdecrement = true;
+			xincrement = false;
+			if(deplacementVersHaut)
+				this.position.setY(this.position.getY() - OFFSET);
+			else
+				this.position.setY(this.position.getY() + OFFSET);
+		}else{
+			if(deplacementVersHaut)
+				this.position.setY(this.position.getY() - OFFSET);
+			else
+				this.position.setY(this.position.getY() + OFFSET);
+
+			xincrement = false;
+			xdecrement = false;
 
 		}
+
+	}
 
 	public Omnivore seReproduire() {
 		return new Omnivore();
