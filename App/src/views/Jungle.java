@@ -42,25 +42,27 @@ public class Jungle extends JFrame {
 
 
 	public void deplacer() {
-
-		coll_anim = Animal.getCollec_anim();
-		Animal<?> ani_courant ;
+		Animal<?> ani_courant;
 		JLabel animal_label;
-		for(int j = 0; j < coll_anim.size(); j++){
+		coll_anim = Animal.getCollec_anim();
+
+		for (int j = 0; j < coll_anim.size(); j++) {
+			System.out.println("La taille de la collection dans deplacer de jungle = " + coll_anim.size());
 			ani_courant = coll_anim.get(j);
-			animal_label = new JLabel(new ImageIcon("/home/pap-c/AnimalLife/App/images/pas_1.png"));
+			animal_label = new JLabel(new ImageIcon("/home/pkss/AnimalLife/App/images/pas_1.png"));
 			ajouter(animal_label, ani_courant.getPosition().getX(), ani_courant.getPosition().getY());
-			if(ani_courant.estVivant()) {
-				if(ani_courant.isHerbivore())
-					new Thread(new TraitementHerbivore((Herbivore)ani_courant, animal_label, panneau)).start();
+			if (ani_courant.estVivant()) {
+				if (ani_courant.isHerbivore())
+					new Thread(new TraitementHerbivore((Herbivore) ani_courant, animal_label, panneau)).start();
 				else if (ani_courant.isCarnivore())
-					new Thread(new TraitementCarnivore((Carnivore)ani_courant, animal_label, panneau)).start();
+					new Thread(new TraitementCarnivore((Carnivore) ani_courant, animal_label, panneau)).start();
 				else
 					new Thread(new TraitementOmnivore((Omnivore) ani_courant, animal_label, panneau)).start();
 
 			}
 
 		}
+
 	}
 
 	public void placer_animal(Animal<?> a, JLabel animal_icon){

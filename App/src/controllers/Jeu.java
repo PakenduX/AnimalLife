@@ -12,7 +12,7 @@ import javax.swing.*;
 
 public class Jeu {
 
-	Jungle jungle = new Jungle();
+	static Jungle jungle = new Jungle();
 
 	/**
 	 * La fonction qui va traiter la collision entre les différents animaux
@@ -31,7 +31,7 @@ public class Jeu {
 			 //On teste son éventuelle collision avec tous les autres.
 			for(int j = 1; j < coll_anim.size(); j++) {
 				anj = coll_anim.get(j);
-				//System.out.println("La taille de la collection = "+ Animal.getCollec_anim().size());
+				System.out.println("La taille de la collection = "+ Animal.getCollec_anim().size());
 				if(ani.collision(anj)) {
 					System.out.println("Collision détectée");
 					if(ani.meme_espece(anj)) {
@@ -56,37 +56,44 @@ public class Jeu {
 							if (ani.getAge() > anj.getAge()) {
 								anj.mourrir(j);
 								System.out.println("ani est plus agé age = "+ani.getAge());
-                                //System.out.println("La taille de la collection = "+ Animal.getCollec_anim().size());
+                                System.out.println("La taille de la collection = "+ Animal.getCollec_anim().size());
 							}else if (ani.getAge() < anj.getAge()) {
 								ani.mourrir(i);
 								System.out.println("anj est plus agé age = "+anj.getAge());
-                                //System.out.println("La taille de la collection = "+ Animal.getCollec_anim().size());
+                                System.out.println("La taille de la collection = "+ Animal.getCollec_anim().size());
 							}
 						}
 						//Les deux animaux ne sont pas de la même espèce
 					}else{
 						if(ani.isCarnivore()){
-							if(anj.isHerbivore())
+							if(anj.isHerbivore()) {
 								ani.seNourrir(anj);
-							else
+								System.out.println("La position de celui qui a mangé est x = "+ani.getPosition().getX() + " y = "+ani.getPosition().getY());
+							}else {
 								anj.seNourrir(ani);
-                            //System.out.println("La taille de la collection = "+ Animal.getCollec_anim());
+								System.out.println("La taille de la collection = "+ Animal.getCollec_anim());
+								System.out.println("La position de celui qui a mangé est x = "+anj.getPosition().getX() + " y = "+ani.getPosition().getY());
+							}
 						}else if(ani.isHerbivore()){
-							if(anj.isCarnivore())
+							if(anj.isCarnivore()) {
 								anj.seNourrir(ani);
-							else {
+								System.out.println("La position de celui qui a mangé est x = "+anj.getPosition().getX() + " y = "+ani.getPosition().getY());
+							}else {
 								ani.seNourrir(anj);
 								System.out.println("anj est etre omnivore, il est "+anj.getClass().getName());
+								System.out.println("La position de celui qui a mangé est x = "+ani.getPosition().getX() + " y = "+ani.getPosition().getY());
 							}
-                            //System.out.println("La taille de la collection = "+ Animal.getCollec_anim().size());
+                            System.out.println("La taille de la collection = "+ Animal.getCollec_anim().size());
 						}else{
-							if(anj.isCarnivore())
+							if(anj.isCarnivore()) {
 								ani.seNourrir(anj);
-							else {
+								System.out.println("La position de celui qui a mangé est x = "+ani.getPosition().getX() + " y = "+ani.getPosition().getY());
+							}else {
 								anj.seNourrir(ani);
 								System.out.println("ani est etre omnivore, il est "+ani.getClass().getName());
+								System.out.println("La position de celui qui a mangé est x = "+anj.getPosition().getX() + " y = "+ani.getPosition().getY());
 							}
-                            //System.out.println("La taille de la collection = "+ Animal.getCollec_anim().size());
+                            System.out.println("La taille de la collection = "+ Animal.getCollec_anim().size());
 						}
 					}
 				}
@@ -134,6 +141,19 @@ public class Jeu {
 		for (int i = 0; i < coll_anim.size(); i++)
 			jungle.placer_animal(coll_anim.get(i), new JLabel(new ImageIcon("/home/pkss/AnimalLife/App/images/pas_1.png")));
 
+		/*new Thread(new Runnable() {
+			public void run() {
+				while (true){
+					jungle.getContentPane().removeAll();
+					jungle.deplacer();
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}).start();*/
 		jungle.deplacer();
 
 	}
