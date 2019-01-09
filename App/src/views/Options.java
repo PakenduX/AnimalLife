@@ -1,6 +1,10 @@
 package views;
 
 import controllers.Jeu;
+import models.Animal;
+import models.Carnivore;
+import models.Herbivore;
+import models.Omnivore;
 
 import javax.swing.*;
 import java.awt.*;
@@ -125,6 +129,7 @@ public class Options extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args){
+
         new Options().setVisible(true);
     }
 

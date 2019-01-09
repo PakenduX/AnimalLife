@@ -3,6 +3,7 @@ package views;
 import controllers.Jeu;
 import models.Animal;
 import models.Herbivore;
+import models.Position;
 
 import javax.swing.*;
 
@@ -37,10 +38,15 @@ public class TraitementHerbivore implements Runnable {
 
 				animal.setIcon(new ImageIcon("/home/pkss/AnimalLife/App/images/pas_" + j + ".png"));
 			}
-			a.seDeplacer(panneau.getWidth(), panneau.getHeight());
-			Jeu.traiter_collisions();
-			animal.setLocation(a.getPosition().getX(), a.getPosition().getY());
+			if(a.estVivant()) {
+				a.seDeplacer(panneau.getWidth(), panneau.getHeight());
+				Jeu.traiter_collisions();
+				animal.setLocation(a.getPosition().getX(), a.getPosition().getY());
+			}else
+				animal.setLocation(-100, -100);
+
 			panneau.repaint();
+
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {

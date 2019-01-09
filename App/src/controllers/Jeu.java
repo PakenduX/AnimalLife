@@ -1,13 +1,11 @@
 package controllers;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import models.*;
 import views.Jungle;
 import views.Options;
 
-import javax.crypto.spec.OAEPParameterSpec;
 import javax.swing.*;
 
 public class Jeu {
@@ -139,22 +137,9 @@ public class Jeu {
 		ArrayList<Animal<?>> coll_anim = Animal.getCollec_anim();
 
 		for (int i = 0; i < coll_anim.size(); i++)
-			jungle.placer_animal(coll_anim.get(i), new JLabel(new ImageIcon("/home/pkss/AnimalLife/App/images/pas_1.png")));
+			jungle.placer_animal(coll_anim.get(i));
 
-		/*new Thread(new Runnable() {
-			public void run() {
-				while (true){
-					jungle.getContentPane().removeAll();
-					jungle.deplacer();
-					try {
-						Thread.sleep(100);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		}).start();*/
-		jungle.deplacer();
+		jungle.deplacement();
 
 	}
 

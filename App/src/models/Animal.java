@@ -1,13 +1,14 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
 /**
  * La classe générique abstraite représentant un Animal
  * @author Équipe Jungle
  * @param <E> le type d'animal
  */
-public abstract class Animal<E> implements EtreVivant<E>{
+public abstract class Animal<E> implements EtreVivant<E> {
 	protected int age;
 	protected char sexe;
 	protected boolean famine;
@@ -77,7 +78,7 @@ public abstract class Animal<E> implements EtreVivant<E>{
 		estVivant = false;
 		collec_anim.remove(index);
 		gerer_index(index);
-		setPosition(new Position(-10, -10));
+		setPosition(new Position(-100, -100));
 		System.out.println("Element à l'indice "+index + " est dead");
 	}
 	/**
@@ -88,14 +89,14 @@ public abstract class Animal<E> implements EtreVivant<E>{
 	 * @return true s'il y a collision, false sinon
 	 */
 	public boolean collision(Animal<?> a) {
-		return (Math.abs(this.position.getX() - a.position.getX()) < 5)
-				&& (Math.abs(this.position.getY() - a.position.getY()) < 5);
+		return (Math.abs(this.position.getX() - a.position.getX()) < 10)
+				&& (Math.abs(this.position.getY() - a.position.getY()) < 10);
 		
 	}
 
 	public boolean proche_nourriture(Position p){
-		return Math.abs(this.position.getX() - p.getX()) < 5
-				&& Math.abs(this.position.getY() - p.getY()) < 5;
+		return Math.abs(this.position.getX() - p.getX()) < 10
+				&& Math.abs(this.position.getY() - p.getY()) < 10;
 	}
 	
 	public void boire() {
