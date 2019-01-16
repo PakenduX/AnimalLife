@@ -89,14 +89,14 @@ public abstract class Animal<E> implements EtreVivant<E> {
 	 * @return true s'il y a collision, false sinon
 	 */
 	public boolean collision(Animal<?> a) {
-		return (Math.abs(this.position.getX() - a.position.getX()) < 10)
-				&& (Math.abs(this.position.getY() - a.position.getY()) < 10);
+		return (Math.abs((this.position.getX() + 100) - a.position.getX()) < 10)|| Math.abs(this.position.getX() - (a.position.getX()+100)) < 10
+				&& (Math.abs((this.position.getY()+100) - a.position.getY()) < 10|| Math.abs(this.position.getY() - (a.position.getY()+100)) < 10 );
 		
 	}
 
 	public boolean proche_nourriture(Position p){
-		return Math.abs(this.position.getX() - p.getX()) < 10
-				&& Math.abs(this.position.getY() - p.getY()) < 10;
+		return Math.abs(this.position.getX() - p.getX()) < 100
+				&& Math.abs(this.position.getY() - p.getY()) < 100;
 	}
 	
 	public void boire() {
