@@ -1,5 +1,10 @@
 package models;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 /**
  * La classe représentant un carnivore
  * @author Équipe Jungle
@@ -10,9 +15,14 @@ public class Carnivore extends Animal<Carnivore>{
 	boolean ydecrement = false;
 	boolean yincrement = false;
 
+	BufferedWriter bw;
+
 	public Carnivore() {
 		super();
 		this.position = new Position(19, 1);
+		try {
+			bw = new BufferedWriter(new FileWriter(new File("/home/pkss/AnimalLife/deplacement_carni.txt")));
+		}catch (IOException e){}
 	}
 
 	/**
@@ -21,14 +31,12 @@ public class Carnivore extends Animal<Carnivore>{
 	 * @param a
 	 */
 	public void seNourrir(Animal<?> a) {
-		this.age++;
+		this.age += 5;
 		a.mourrir(a.getIndex());
 		System.out.println("Carnivore se nourrit de "+ a.getClass().getName() + " son age vaut = "+ this.age);
 	}
 
-	public void seNourrir(EtreVivant<?> ev) {
-
-	}
+	public void seNourrir(EtreVivant<?> ev) {}
 
 	public void seDeplacer(int xMax, int yMax) {
 		int x = this.getPosition().getX();
@@ -95,13 +103,19 @@ public class Carnivore extends Animal<Carnivore>{
 			yincrement = false;
 			ydecrement = false;
 
+			try {
+				bw.write(x + " " + y + ", ");
+				bw.flush();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
 		}
 
 	}
 
 	public Carnivore seReproduire() {
 		return new Carnivore();
-		
 	}
 
 }

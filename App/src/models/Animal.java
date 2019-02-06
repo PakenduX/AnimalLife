@@ -1,7 +1,6 @@
 package models;
 
 import java.util.ArrayList;
-import java.util.Observable;
 
 /**
  * La classe générique abstraite représentant un Animal
@@ -14,6 +13,8 @@ public abstract class Animal<E> implements EtreVivant<E> {
 	protected boolean famine;
 	protected Position position;
 	protected boolean estVivant;
+	protected boolean hasChild ;
+	protected Animal<?> child;
 	protected static ArrayList<Animal<?>> collec_anim = new ArrayList<>();
 	//L'indice de l'objet dans la collection des animaux
 	protected int index;
@@ -26,9 +27,10 @@ public abstract class Animal<E> implements EtreVivant<E> {
 
 
     public Animal() {
-		this.age = (int)(Math.random()*(15) + 1);
+		this.age = (int)(Math.random()*14 + 1);
 		this.famine = false;
 		this.estVivant = true;
+		hasChild = false;
 		int r = (int)(Math.random()*4);
 		if( r >= 0 && r < 2)
 			this.sexe = 'M';
@@ -70,7 +72,7 @@ public abstract class Animal<E> implements EtreVivant<E> {
 	public abstract E seReproduire();
 	
 	/**
-	 * Quand un animal meurt, on le supprime de la collections
+	 * Quand un animal meurt, on le supprime de la collection
 	 * d'animaux et on le met à la position (-1, -1).
 	 * @param index l'indice de l'animal dans la collection
 	 */
@@ -89,9 +91,10 @@ public abstract class Animal<E> implements EtreVivant<E> {
 	 * @return true s'il y a collision, false sinon
 	 */
 	public boolean collision(Animal<?> a) {
-		return (Math.abs((this.position.getX() + 100) - a.position.getX()) < 10)|| Math.abs(this.position.getX() - (a.position.getX()+100)) < 10
-				&& (Math.abs((this.position.getY()+100) - a.position.getY()) < 10|| Math.abs(this.position.getY() - (a.position.getY()+100)) < 10 );
-		
+		return (Math.abs(this.position.getX() + 50 - a.position.getX()) < 30
+				&& Math.abs(this.position.getY() + 35 - a.position.getY()) < 30)
+				|| (Math.abs(this.position.getX() - a.position.getX() + 50) < 30
+				&& Math.abs(this.position.getY() - a.position.getY() + 35) < 30);
 	}
 
 	public boolean proche_nourriture(Position p){
@@ -152,11 +155,11 @@ public abstract class Animal<E> implements EtreVivant<E> {
 	
 	/**
 	 * Cette fonction permet de savoir si un animal est adulte ou pas
-	 * On suppose que l'animal est adulte si son age est entre 1 et 15.
+	 * On suppose que l'animal est adulte s'il est agé d'au moins de 15 ans.
 	 * @return true or false.
 	 */
 	public boolean adult() {
-		return this.age >= 15 && this.age <= 50;
+		return this.age >= 15;
 	}
 
 	public Position getPosition() {
@@ -177,6 +180,22 @@ public abstract class Animal<E> implements EtreVivant<E> {
 
 	public boolean estVivant(){
 		return estVivant;
+	}
+
+	public boolean getHasChild() {
+		return hasChild;
+	}
+
+	public Animal<?> getChild() {
+		return child;
+	}
+
+	public void setHasChild(boolean hasChild) {
+		this.hasChild = hasChild;
+	}
+
+	public void setChild(Animal<?> child) {
+		this.child = child;
 	}
 
 	/**

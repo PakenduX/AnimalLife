@@ -6,7 +6,12 @@ import models.Herbivore;
 import models.Position;
 
 import javax.swing.*;
+import java.io.IOException;
 
+/**
+ * Cette classe permet de lancer le traitement
+ * pour un herbivore (deplacement, mort ).
+ */
 
 public class TraitementHerbivore implements Runnable {
 	private Animal<?> a;
@@ -40,15 +45,16 @@ public class TraitementHerbivore implements Runnable {
 			}
 			if(a.estVivant()) {
 				a.seDeplacer(panneau.getWidth(), panneau.getHeight());
-				Jeu.traiter_collisions();
 				animal.setLocation(a.getPosition().getX(), a.getPosition().getY());
+				System.out.println("La position dans le traitment herbi est "+ animal.getX() + " " + animal.getY());
+
 			}else
 				animal.setLocation(-100, -100);
 
 			panneau.repaint();
 
 			try {
-				Thread.sleep(100);
+				Thread.sleep(20);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

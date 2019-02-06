@@ -1,5 +1,10 @@
 package models;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 /**
  * La classe représentant un Herbivore
  * @author Équipe Jungle
@@ -9,9 +14,15 @@ public class Herbivore extends Animal<Herbivore>{
 
 	boolean ydecrement = false;
 	boolean yincrement = false;
+	BufferedWriter bw;
+
 	public Herbivore() {
 		super();
 		this.position = new Position(1, 2);
+
+		try {
+			bw = new BufferedWriter(new FileWriter(new File("/home/pkss/AnimalLife/deplacement_Herbi.txt")));
+		}catch (IOException e){}
 	}
 
 	/**
@@ -21,7 +32,7 @@ public class Herbivore extends Animal<Herbivore>{
 	 */
 	public void seNourrir(Herbe herb) {
 		if(herb instanceof HerbeNormale)
-			this.age++;
+			this.age += 5;
 		else
 			this.mourrir(this.getIndex());
 
@@ -33,7 +44,7 @@ public class Herbivore extends Animal<Herbivore>{
 	public void seNourrir(EtreVivant<?> ev) {}
 
 	public void seNourrir(Animal<?> omn) {
-		this.age++;
+		this.age += 5;
 		omn.mourrir(omn.getIndex());
 		System.out.println("Herbivore se nourrit de "+ omn.getClass().getName() + " son age vaut = "+ this.age);
 	}
@@ -102,6 +113,13 @@ public class Herbivore extends Animal<Herbivore>{
 
 			yincrement = false;
 			ydecrement = false;
+
+			try {
+				bw.write(x + " " + y + ", ");
+				bw.flush();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 
 		}
 	}

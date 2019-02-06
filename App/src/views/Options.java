@@ -22,14 +22,15 @@ public class Options extends JFrame implements ActionListener {
     private static int nbCarn, qHerbN, qHerbE, nbOmn, nbHerbv;
 
     JTextField nbCarn_field, nbHerbv_field, nbOmn_field, qHerbN_field, qHerbE_field;
+    private Panneau_option panneau_option;
 
     public Options(){
         this.setTitle("Choisir");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(700, 500);
-        this.setLocationRelativeTo(null);
-        this.setLayout(null);
+        panneau_option=new Panneau_option();
+        setBounds(0, 0, Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height);
         setResizable(false);
+        panneau_option.setLayout(null);
 
         JLabel titre = new JLabel("Saisissez les options et " +
                 "cliquez sur lancer pour lancer le jeu");
@@ -54,14 +55,10 @@ public class Options extends JFrame implements ActionListener {
         //Bouton lancer
         JButton lancer = new JButton("Lancer");
 
-        //Side image
-        ImageIcon img = new ImageIcon("/home/pkss/AnimalLife/App/images/animaux_jungle.jpg");
-        JLabel img_label = new JLabel(img);
-
         //Positionnement
-        Font f = new Font("Arial", Font.BOLD, 17);
-        titre.setFont(new Font("Arial", Font.BOLD, 20));
-        titre.setBounds(10, 10, 700, 30);
+        Font f = new Font("Arial", Font.BOLD, 40);
+        titre.setFont(new Font("Arial", Font.BOLD, 40));
+        titre.setBounds(10, 10, 1000, 100);
         nbCarn_label.setFont(f);
         nbCarn_label.setBounds(10, 100, 230, 30);
         nbCarn_field.setBounds(240, 100, 110, 30);
@@ -85,26 +82,25 @@ public class Options extends JFrame implements ActionListener {
 
         lancer.setBounds(550, 420, 110, 30);
 
-        img_label.setBounds(405, 70, 280, 300);
-
-        this.add(titre);
-        this.add(nbCarn_label);
-        this.add(nbCarn_field);
-        this.add(nbHerbv_label);
-        this.add(nbHerbv_field);
-        this.add(nbOmn_label);
-        this.add(nbOmn_field);
-        this.add(qHerbN_label);
-        this.add(qHerbN_field);
-        this.add(qHerbE_label);
-        this.add(qHerbE_field);
+        panneau_option.add(titre);
+        panneau_option.add(nbCarn_label);
+        panneau_option.add(nbCarn_field);
+        panneau_option.add(nbHerbv_label);
+        panneau_option.add(nbHerbv_field);
+        panneau_option.add(nbOmn_label);
+        panneau_option.add(nbOmn_field);
+        panneau_option.add(qHerbN_label);
+        panneau_option.add(qHerbN_field);
+        panneau_option.add(qHerbE_label);
+        panneau_option.add(qHerbE_field);
         //this.add(qEau_label);
         //this.add(qEau_field);
         //this.add(en_l);
-        this.add(lancer);
-        this.add(img_label);
+        panneau_option.add(lancer);
+        this.setContentPane(panneau_option);
 
         lancer.addActionListener(this);
+        setVisible(true);
 
     }
 

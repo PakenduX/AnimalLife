@@ -1,5 +1,10 @@
 package models;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 /**
  * La classe représentant un Omnivore
  * @author Équipe Jungle
@@ -10,9 +15,18 @@ public class Omnivore extends Animal<Omnivore>{
 	boolean xdecrement = false;
 	boolean xincrement = false;
 
+	BufferedWriter 	bw;
+
 	public Omnivore() {
 		super();
 		this.position = new Position(2, 2);
+
+		try {
+			bw = new BufferedWriter(new FileWriter(new File("/home/pkss/AnimalLife/deplacement_omni.txt")));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	public void seNourrir(Animal<?> carn) {
@@ -23,7 +37,7 @@ public class Omnivore extends Animal<Omnivore>{
 
 	public void seNourrir(Herbe herb){
 		if(herb instanceof HerbeNormale)
-			this.age++;
+			this.age += 5;
 		else
 			this.mourrir(this.getIndex());
 
@@ -104,6 +118,13 @@ public class Omnivore extends Animal<Omnivore>{
 
 			xincrement = false;
 			xdecrement = false;
+
+			try {
+				bw.write(x + " " + y + ", ");
+				bw.flush();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 
 		}
 

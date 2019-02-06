@@ -1,22 +1,39 @@
 package controllers;
 
+import java.awt.*;
+import java.io.*;
 import java.util.ArrayList;
 
 import models.*;
 import views.Jungle;
 import views.Options;
+import views.TraitementCarnivore;
 
 import javax.swing.*;
 
+/**
+ * La classe qui permet de lancer le jeu
+ */
 public class Jeu {
 
 	static Jungle jungle = new Jungle();
+	static BufferedWriter bw = null;
+
+	{
+		try {
+			bw = new BufferedWriter(new FileWriter(new File("/home/pkss/AnimalLife/retour.txt")));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 
 	/**
 	 * La fonction qui va traiter la collision entre les différents animaux
 	 * de la jungle.
 	 */
-	public static void traiter_collisions() {
+	public static void traiter_collisions() throws IOException {
+
 		ArrayList<Animal<?>> coll_anim = Animal.getCollec_anim();
 		ArrayList<Herbe> coll_herb = Herbe.getColl_herb();
 		int quantite_o = Eau.getQuantite();
@@ -26,72 +43,77 @@ public class Jeu {
 		// Pour chaque animal de la collection
 		for(int i = 0; i < coll_anim.size(); i++) {
 			ani = coll_anim.get(i);
-			 //On teste son éventuelle collision avec tous les autres.
-			for(int j = 1; j < coll_anim.size(); j++) {
+			//On teste son éventuelle collision avec tous les autres.
+			for(int j = 0; j < coll_anim.size(); j++) {
 				anj = coll_anim.get(j);
-				System.out.println("La taille de la collection = "+ Animal.getCollec_anim().size());
 				if(ani.collision(anj)) {
-					System.out.println("Collision détectée");
+					bw.write("Collision détectée");
+					bw.newLine();
 					if(ani.meme_espece(anj)) {
-						System.out.println("Meme espece");
-						System.out.println("sexe de ani = " + ani.getSexe() + " et sexe de anj = " + anj.getSexe());
+						bw.write("Meme espece");
+						bw.newLine();
+						bw.write("sexe de ani = " + ani.getSexe() + " et sexe de anj = " + anj.getSexe());
+						bw.newLine();
 						if (!ani.meme_sexe(anj)) {
-							System.out.println("Pas même sexe");
+							bw.write(" Pas même sexe");
+							bw.newLine();
 							if (ani.adult() && anj.adult()) {
-								System.out.println("les deux sont adultes");
+								bw.write(" les deux sont adultes");
+								bw.newLine();
 								Animal<?> fils = (Animal<?>) ani.seReproduire();
-								fils.setPosition(new Position(ani.getPosition().getX() + 20, ani.getPosition().getY() + 10));
-								if (fils instanceof Carnivore)
-									System.out.println("C'est un type Carnivore");
-								else if (fils instanceof Herbivore)
-									System.out.println("C'est un type Herbivore");
-								else
-									System.out.println("C'est un type Omnivore");
+								fils.setPosition(new Position((int)Math.random()*Toolkit.getDefaultToolkit().getScreenSize().width, (int)Math.random()*Toolkit.getDefaultToolkit().getScreenSize().height));
+								ani.setChild(fils);
+								ani.setHasChild(true);
+								bw.write("Reproduction");
+								bw.write("Taille de la collection = "+ coll_anim.size());
 
+							}else {
+								bw.write("Pas adult");
+								bw.newLine();
 							}
+
 							//Les deux animaux sont de même sexe.
 						} else {
 							if (ani.getAge() > anj.getAge()) {
 								anj.mourrir(j);
-								System.out.println("ani est plus agé age = "+ani.getAge());
-                                System.out.println("La taille de la collection = "+ Animal.getCollec_anim().size());
+								bw.write("ani est plus agé age = "+ani.getAge());
 							}else if (ani.getAge() < anj.getAge()) {
 								ani.mourrir(i);
-								System.out.println("anj est plus agé age = "+anj.getAge());
-                                System.out.println("La taille de la collection = "+ Animal.getCollec_anim().size());
+								bw.write("anj est plus agé age = "+anj.getAge());
 							}
+							bw.newLine();
 						}
 						//Les deux animaux ne sont pas de la même espèce
 					}else{
 						if(ani.isCarnivore()){
 							if(anj.isHerbivore()) {
 								ani.seNourrir(anj);
-								System.out.println("La position de celui qui a mangé est x = "+ani.getPosition().getX() + " y = "+ani.getPosition().getY());
+								bw.write("La position de celui qui a mangé est x = "+ani.getPosition().getX() + " y = "+ani.getPosition().getY());
 							}else {
 								anj.seNourrir(ani);
-								System.out.println("La taille de la collection = "+ Animal.getCollec_anim());
-								System.out.println("La position de celui qui a mangé est x = "+anj.getPosition().getX() + " y = "+ani.getPosition().getY());
+								bw.write("La position de celui qui a mangé est x = "+anj.getPosition().getX() + " y = "+ani.getPosition().getY());
 							}
+							bw.newLine();
 						}else if(ani.isHerbivore()){
 							if(anj.isCarnivore()) {
 								anj.seNourrir(ani);
-								System.out.println("La position de celui qui a mangé est x = "+anj.getPosition().getX() + " y = "+ani.getPosition().getY());
+								bw.write("La position de celui qui a mangé est x = "+anj.getPosition().getX() + " y = "+ani.getPosition().getY());
 							}else {
 								ani.seNourrir(anj);
-								System.out.println("anj est etre omnivore, il est "+anj.getClass().getName());
-								System.out.println("La position de celui qui a mangé est x = "+ani.getPosition().getX() + " y = "+ani.getPosition().getY());
+								bw.write("anj est etre omnivore, il est "+anj.getClass().getName());
+								bw.newLine();
+								bw.write("La position de celui qui a mangé est x = "+ani.getPosition().getX() + " y = "+ani.getPosition().getY());
 							}
-                            System.out.println("La taille de la collection = "+ Animal.getCollec_anim().size());
 						}else{
 							if(anj.isCarnivore()) {
 								ani.seNourrir(anj);
-								System.out.println("La position de celui qui a mangé est x = "+ani.getPosition().getX() + " y = "+ani.getPosition().getY());
+								bw.write("La position de celui qui a mangé est x = "+ani.getPosition().getX() + " y = "+ani.getPosition().getY());
 							}else {
 								anj.seNourrir(ani);
-								System.out.println("ani est etre omnivore, il est "+ani.getClass().getName());
-								System.out.println("La position de celui qui a mangé est x = "+anj.getPosition().getX() + " y = "+ani.getPosition().getY());
+								bw.write("ani est etre omnivore, il est "+ani.getClass().getName());
+								bw.newLine();
+								bw.write("La position de celui qui a mangé est x = "+anj.getPosition().getX() + " y = "+ani.getPosition().getY());
 							}
-                            System.out.println("La taille de la collection = "+ Animal.getCollec_anim().size());
 						}
 					}
 				}
@@ -104,17 +126,23 @@ public class Jeu {
 			a = coll_anim.get(i);
 			for (int j = 0; j < coll_herb.size(); j++){
 				h = coll_herb.get(j);
-				if(a.proche_nourriture(h.getPosition())){
-					if(a.isHerbivore())
-						((Herbivore)a).seNourrir(h);
-					else if(a.isOmnivore())
-						((Omnivore)a).seNourrir(h);
-				}else if(a.proche_nourriture(Eau.getPosition()))
-					a.boire();
+				if(a.proche_nourriture(h.getPosition())) {
+					if (a.isHerbivore())
+						((Herbivore) a).seNourrir(h);
+					else if (a.isOmnivore())
+						((Omnivore) a).seNourrir(h);
+				}
+			}
+
+			if(a.proche_nourriture(Eau.getPosition())) {
+				a.boire();
+				bw.write("Boire quantit = " +Eau.getQuantite());
+				if (Eau.getQuantite() == 0)
+					Eau.disparaitre();
 			}
 
 		}
-		
+
 	}
 	
 	public void lancer() {
@@ -132,7 +160,9 @@ public class Jeu {
 		for (int i = 0; i < Options.getQHerbE(); i++)
 			new HerbeEmpoisonnee().setPosition(new Position((int)(Math.random()*(jungle.getWidth())), (int)(Math.random()*(jungle.getHeight()))));
 
-		Eau.setPosition(new Position(100, 50));
+		//Eau.setPosition(new Position(960, 540));
+		//Eau.setQuantite(100);
+		//Eau.setEau_is_suffisant(true);
 
 		ArrayList<Animal<?>> coll_anim = Animal.getCollec_anim();
 
