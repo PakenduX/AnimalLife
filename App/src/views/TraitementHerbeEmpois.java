@@ -21,7 +21,7 @@ public class TraitementHerbeEmpois implements Runnable {
 
         while(true) {
                 if(a.isHerbe_est_vivant())
-                    herbe.setIcon(new ImageIcon("/home/pkss/AnimalLife/App/images/herbe_empois.png"));
+                    herbe.setIcon(new ImageIcon(this.getClass().getResource("/images/herbe_empois.png")));
                 else
                     herbe.setLocation(-100,-100);
                 panneau.repaint();

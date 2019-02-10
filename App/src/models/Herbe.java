@@ -10,8 +10,7 @@ public class Herbe{
 	private boolean Herbe_est_vivant;
 
 	public Herbe() {
-		//this.position = new Position(0, 0);
-		Herbe_est_vivant=true;
+		Herbe_est_vivant = true;
 		coll_herb.add(this);
 		this.index = coll_herb.size() - 1;
 	}
@@ -58,9 +57,5 @@ public class Herbe{
 
 	public boolean isNormal(){
 		return this instanceof HerbeNormale;
-	}
-
-	public boolean isPoisoned(){
-		return this instanceof HerbeEmpoisonnee;
 	}
 }

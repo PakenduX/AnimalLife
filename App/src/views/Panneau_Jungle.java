@@ -12,7 +12,7 @@ public class Panneau_Jungle extends JPanel {
 	 {
 		 try {
 			
-			 Image img3=ImageIO.read(new File("/home/pkss/AnimalLife/App/images/jungle.jpg"));
+			 Image img3=ImageIO.read(this.getClass().getResource("/images/jungle.jpg"));
 			 g.drawImage(img3, 0, 0,this.getWidth(),this.getHeight(),null);
 			 
 		 }catch(Exception e) {

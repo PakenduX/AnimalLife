@@ -56,7 +56,7 @@ public class Jungle extends JFrame {
 		Animal<?> fils;
 		JLabel animal_label;
 		for(int i = 0; i < coll_anim.size(); i++){
-			animal_label = new JLabel(new ImageIcon("/home/pkss/AnimalLife/App/images/pas_1.png"));
+			animal_label = new JLabel(new ImageIcon(this.getClass().getResource("/images/pas_1.png")));
 			ani = coll_anim.get(i);
 			if(ani.estVivant() && ani.getHasChild()){
 				fils = ani.getChild();
@@ -100,12 +100,15 @@ public class Jungle extends JFrame {
 				new Thread(new TraitementHerbeEmpois(h,herb_label,panneau)).start();
 
 		}
-
+		// Lancement du traitement de la reproduction
+		// en parallèle.
 		new Thread(() -> {
 			while (true)
 				traitementReproduction();
 		}).start();
 
+		// Lancement du traitement des collisions
+		// en parallèle.
 		new Thread(() -> {
 			try {
 				while (true)
@@ -116,9 +119,8 @@ public class Jungle extends JFrame {
 		}).start();
 
 		for (int j = 0; j < coll_anim.size(); j++) {
-			System.out.println("La taille de la collection dans deplacer de jungle = " + coll_anim.size());
 			ani_courant = coll_anim.get(j);
-			animal_label = new JLabel(new ImageIcon("/home/pkss/AnimalLife/App/images/pas_1.png"));
+			animal_label = new JLabel(new ImageIcon(this.getClass().getResource("/images/pas_1.png")));
 			ajouter(animal_label, ani_courant.getPosition().getX(), ani_courant.getPosition().getY());
 
 			if (ani_courant.estVivant()) {
@@ -145,22 +147,10 @@ public class Jungle extends JFrame {
 	 * @param a l'animal à placer.
 	 */
 	public void placer_animal(Animal<?> a){
-		int x;
+		int x=  (int)(Math.random()*(this.getWidth()));
 		int y = (int)(Math.random()*(this.getHeight()));
-
-		if(a.isCarnivore()) {
-			x = (int) (Math.random() * (this.getWidth() / 3));
-			System.out.println("Dans placer animal postion carni= " +x + " "+ y);
-		}else if(a.isHerbivore()) {
-			x = (int) ((this.getWidth() / 3) + Math.random() * (this.getWidth() * 2 / 3 - this.getWidth() / 3));
-			System.out.println("Dans placer animal postion herbi= " +x + " "+ y);
-		}else {
-			x = (int) ((this.getWidth() * 2 / 3) + Math.random() * (this.getWidth() - this.getWidth() * 2 / 3));
-			System.out.println("Dans placer animal postion omni= " +x + " "+ y);
-		}
 
 		a.setPosition(new Position(x, y));
 	}
-
 
 }

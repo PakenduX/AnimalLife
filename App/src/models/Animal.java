@@ -1,5 +1,6 @@
 package models;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -23,6 +24,10 @@ public abstract class Animal<E> implements EtreVivant<E> {
 	protected boolean deplacementVersGauche = false;
 	protected boolean deplacementVersHaut = false;
 	protected boolean deplacementVersBas = false;
+	boolean ydecrement = false;
+	boolean yincrement = false;
+	boolean xdecrement = false;
+	boolean xincrement = false;
 	protected final int OFFSET = 10;
 
 
@@ -45,16 +50,8 @@ public abstract class Animal<E> implements EtreVivant<E> {
 		return sexe;
 	}
 
-	public void setSexe(char sexe) {
-		this.sexe = sexe;
-	}
-
 	public static ArrayList<Animal<?>> getCollec_anim() {
 		return collec_anim;
-	}
-
-	public static void setCollec_anim(ArrayList<Animal<?>> collec_anim) {
-		Animal.collec_anim = collec_anim;
 	}
 
 	public abstract void seNourrir(Animal<?> ev);
@@ -62,12 +59,6 @@ public abstract class Animal<E> implements EtreVivant<E> {
 	public int getAge() {
 		return age;
 	}
-
-	public void setAge(int age) {
-		this.age = age;
-	}
-
-	public abstract void seDeplacer(int xMax, int yMax);
 
 	public abstract E seReproduire();
 	
@@ -104,7 +95,7 @@ public abstract class Animal<E> implements EtreVivant<E> {
 	
 	public void boire() {
 		Eau.setQuantite(Eau.getQuantite() - 1);
-		System.out.println(this.getClass().getName() + " a bu et la quantite restante est = "+ Eau.getQuantite());
+		//System.out.println(this.getClass().getName() + " a bu et la quantite restante est = "+ Eau.getQuantite());
 	}
 	
 	/**
@@ -213,15 +204,221 @@ public abstract class Animal<E> implements EtreVivant<E> {
 		return deplacementVersDroite;
 	}
 
-	public boolean getDeplacementVersGauche() {
-		return deplacementVersGauche;
-	}
-
 	public boolean getDeplacementVersHaut() {
 		return deplacementVersHaut;
 	}
 
-	public boolean getDeplacementVersBas() {
-		return deplacementVersBas;
+	public void seDeplacerLeft(int xMax, int yMax) {
+		int x = this.getPosition().getX();
+		int y = this.getPosition().getY();
+
+		if(ydecrement)
+			this.position.setY(this.position.getY() - OFFSET);
+
+		if(yincrement)
+			this.position.setY(this.position.getY() + 20);
+
+		if(x <= 0 && y <= 0){
+			this.position.setX(this.position.getX() + OFFSET);
+			deplacementVersDroite = true;
+			deplacementVersGauche = false;
+			yincrement = true;
+			ydecrement = false;
+		}else if( x > 0 && y <= 0){
+			ydecrement = false;
+			yincrement = true;
+			deplacementVersDroite = true;
+			deplacementVersGauche = false;
+			this.position.setX(this.position.getX() + OFFSET);
+		}else if(y > 0 && x <= 0){
+
+			this.position.setX(this.position.getX() + OFFSET);
+			deplacementVersDroite = true;
+			deplacementVersGauche = false;
+			if(y > Math.abs(y - yMax))
+				ydecrement = true;
+			else
+				yincrement = true;
+
+		}else if(x >= xMax && y >= yMax){
+			ydecrement = true;
+			yincrement = false;
+			deplacementVersGauche = true;
+			deplacementVersDroite = false;
+			this.position.setX(this.position.getX() + OFFSET);
+
+		}else if(x < xMax && y >= yMax){
+			ydecrement = false;
+			yincrement = true;
+			if(deplacementVersDroite)
+				this.position.setX(this.position.getX() + OFFSET);
+			else
+				this.position.setX(this.position.getX() - OFFSET);
+
+		}else if(x >= xMax && y < yMax){
+			if(y > Math.abs(y - yMax))
+				ydecrement = true;
+			else
+				yincrement = true;
+			deplacementVersGauche = true;
+			deplacementVersDroite = false;
+			this.position.setX(this.position.getX() - OFFSET);
+
+		}else{
+			if(deplacementVersDroite)
+				this.position.setX(this.position.getX() + OFFSET);
+			else
+				this.position.setX(this.position.getX() - OFFSET);
+
+			yincrement = false;
+			ydecrement = false;
+
+
+		}
+
+	}
+	public void seDeplacerRight(int xMax, int yMax) {
+		int x = this.getPosition().getX();
+		int y = this.getPosition().getY();
+
+		if(ydecrement)
+			this.position.setY(this.position.getY() - OFFSET);
+
+		if(yincrement)
+			this.position.setY(this.position.getY() + 20);
+
+		if(x <= 0 && y <= 0){
+			this.position.setX(this.position.getX() + OFFSET);
+			deplacementVersDroite = true;
+			deplacementVersGauche = false;
+			yincrement = true;
+			ydecrement = false;
+		}else if( x > 0 && y <= 0){
+			ydecrement = false;
+			yincrement = true;
+			deplacementVersDroite = true;
+			deplacementVersGauche = false;
+			this.position.setX(this.position.getX() + OFFSET);
+		}else if(y > 0 && x <= 0){
+
+			this.position.setX(this.position.getX() + OFFSET);
+			deplacementVersDroite = true;
+			deplacementVersGauche = false;
+			if(y > Math.abs(y - yMax))
+				ydecrement = true;
+			else
+				yincrement = true;
+
+		}else if(x >= xMax && y >= yMax){
+			ydecrement = true;
+			yincrement = false;
+			deplacementVersGauche = true;
+			deplacementVersDroite = false;
+			this.position.setX(this.position.getX() + OFFSET);
+
+		}else if(x < xMax && y >= yMax){
+			ydecrement = false;
+			yincrement = true;
+			if(deplacementVersDroite)
+				this.position.setX(this.position.getX() + OFFSET);
+			else
+				this.position.setX(this.position.getX() - OFFSET);
+
+		}else if(x >= xMax && y < yMax){
+			if(y > Math.abs(y - yMax))
+				ydecrement = true;
+			else
+				yincrement = true;
+			deplacementVersGauche = true;
+			deplacementVersDroite = false;
+			this.position.setX(this.position.getX() - OFFSET);
+
+		}else{
+			if(deplacementVersDroite)
+				this.position.setX(this.position.getX() + OFFSET);
+			else
+				this.position.setX(this.position.getX() - OFFSET);
+
+			yincrement = false;
+			ydecrement = false;
+
+		}
+
+}
+	public void seDeplacerHigh(int xMax, int yMax) {
+		int x = this.getPosition().getX();
+		int y = this.getPosition().getY();
+
+		if(xdecrement)
+			this.position.setX(this.position.getX() - OFFSET);
+
+		if(xincrement)
+			this.position.setX(this.position.getX() + 20);
+
+		if(x <= 0 && y <= 0){
+			this.position.setY(this.position.getY() + OFFSET);
+			deplacementVersBas = true;
+			deplacementVersHaut = false;
+			xincrement = true;
+			xdecrement = false;
+		}else if( x > 0 && y <= 0){
+			//Pour pouvoir se décaler de la droite vers la gauche ou vice versa
+			// il faut tester la distance de la position actuelle par rapport à 0
+			// et à xMax.
+			if(x > Math.abs(x - xMax))
+				xdecrement = true;
+			else
+				xincrement = true;
+
+			deplacementVersBas = true;
+			deplacementVersHaut = false;
+			this.position.setY(this.position.getY() + OFFSET);
+		}else if(y > 0 && x <= 0){
+			if(y >= yMax){
+				this.position.setY(this.position.getY() - OFFSET);
+				deplacementVersHaut = true;
+				deplacementVersBas = false;
+			}else{
+				if(deplacementVersHaut)
+					this.position.setY(this.position.getY() - OFFSET);
+				else
+					this.position.setY(this.position.getY() + OFFSET);
+			}
+			xincrement = true;
+			xdecrement = false;
+		}else if(x >= xMax && y >= yMax){
+			xdecrement = true;
+			xincrement = false;
+			deplacementVersHaut = true;
+			deplacementVersBas = false;
+			this.position.setY(this.position.getY() - OFFSET);
+
+		}else if(x < xMax && y >= yMax){
+			deplacementVersHaut = true;
+			deplacementVersBas = false;
+			this.position.setY(this.position.getY() - OFFSET);
+			if(x > Math.abs(x - xMax))
+				xdecrement = true;
+			else
+				xincrement = true;
+		}else if(x >= xMax && y < yMax){
+			xdecrement = true;
+			xincrement = false;
+			if(deplacementVersHaut)
+				this.position.setY(this.position.getY() - OFFSET);
+			else
+				this.position.setY(this.position.getY() + OFFSET);
+		}else{
+			if(deplacementVersHaut)
+				this.position.setY(this.position.getY() - OFFSET);
+			else
+				this.position.setY(this.position.getY() + OFFSET);
+
+			xincrement = false;
+			xdecrement = false;
+
+		}
+
 	}
 }
+

@@ -1,9 +1,6 @@
 package views;
 
-import models.Animal;
-import models.Carnivore;
 import models.Herbe;
-
 import javax.swing.*;
 
 public class TraitementHerbeNormal implements Runnable {
@@ -17,12 +14,11 @@ public class TraitementHerbeNormal implements Runnable {
         this.a = a;
     }
 
-
     public void run() {
 
         while(true) {
             if(a.isHerbe_est_vivant())
-               herbe.setIcon(new ImageIcon("/home/pkss/AnimalLife/App/images/herbe_normal.png"));
+               herbe.setIcon(new ImageIcon(this.getClass().getResource("/images/herbe_normal.png")));
             else
                 herbe.setLocation(-100,-100);
             panneau.repaint();

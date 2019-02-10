@@ -18,7 +18,7 @@ public class TraitementEau implements Runnable {
 
         while(true) {
             if(Eau.isEau_is_suffisant()) {
-                eau.setIcon(new ImageIcon("/home/pkss/AnimalLife/App/images/eau11.png"));
+                eau.setIcon(new ImageIcon(this.getClass().getResource("/images/eau11.png")));
                 eau.setLocation(Eau.getPosition().getX(), Eau.getPosition().getY());
             }else
                 eau.setLocation(-100,-100);

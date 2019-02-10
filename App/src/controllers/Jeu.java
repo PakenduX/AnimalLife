@@ -17,16 +17,6 @@ import javax.swing.*;
 public class Jeu {
 
 	static Jungle jungle = new Jungle();
-	static BufferedWriter bw = null;
-
-	{
-		try {
-			bw = new BufferedWriter(new FileWriter(new File("/home/pkss/AnimalLife/retour.txt")));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
 
 	/**
 	 * La fonction qui va traiter la collision entre les différents animaux
@@ -36,7 +26,6 @@ public class Jeu {
 
 		ArrayList<Animal<?>> coll_anim = Animal.getCollec_anim();
 		ArrayList<Herbe> coll_herb = Herbe.getColl_herb();
-		int quantite_o = Eau.getQuantite();
 		Animal<?> ani;
 		Animal<?> anj;
 		// Ici on traite la collision entre animaux.
@@ -47,73 +36,39 @@ public class Jeu {
 			for(int j = 0; j < coll_anim.size(); j++) {
 				anj = coll_anim.get(j);
 				if(ani.collision(anj)) {
-					bw.write("Collision détectée");
-					bw.newLine();
 					if(ani.meme_espece(anj)) {
-						bw.write("Meme espece");
-						bw.newLine();
-						bw.write("sexe de ani = " + ani.getSexe() + " et sexe de anj = " + anj.getSexe());
-						bw.newLine();
 						if (!ani.meme_sexe(anj)) {
-							bw.write(" Pas même sexe");
-							bw.newLine();
 							if (ani.adult() && anj.adult()) {
-								bw.write(" les deux sont adultes");
-								bw.newLine();
 								Animal<?> fils = (Animal<?>) ani.seReproduire();
 								fils.setPosition(new Position((int)Math.random()*Toolkit.getDefaultToolkit().getScreenSize().width, (int)Math.random()*Toolkit.getDefaultToolkit().getScreenSize().height));
 								ani.setChild(fils);
 								ani.setHasChild(true);
-								bw.write("Reproduction");
-								bw.write("Taille de la collection = "+ coll_anim.size());
-
-							}else {
-								bw.write("Pas adult");
-								bw.newLine();
 							}
 
 							//Les deux animaux sont de même sexe.
 						} else {
-							if (ani.getAge() > anj.getAge()) {
+							if (ani.getAge() > anj.getAge())
 								anj.mourrir(j);
-								bw.write("ani est plus agé age = "+ani.getAge());
-							}else if (ani.getAge() < anj.getAge()) {
+							else if (ani.getAge() < anj.getAge())
 								ani.mourrir(i);
-								bw.write("anj est plus agé age = "+anj.getAge());
-							}
-							bw.newLine();
 						}
 						//Les deux animaux ne sont pas de la même espèce
 					}else{
 						if(ani.isCarnivore()){
-							if(anj.isHerbivore()) {
+							if(anj.isHerbivore())
 								ani.seNourrir(anj);
-								bw.write("La position de celui qui a mangé est x = "+ani.getPosition().getX() + " y = "+ani.getPosition().getY());
-							}else {
+							else
 								anj.seNourrir(ani);
-								bw.write("La position de celui qui a mangé est x = "+anj.getPosition().getX() + " y = "+ani.getPosition().getY());
-							}
-							bw.newLine();
 						}else if(ani.isHerbivore()){
-							if(anj.isCarnivore()) {
+							if(anj.isCarnivore())
 								anj.seNourrir(ani);
-								bw.write("La position de celui qui a mangé est x = "+anj.getPosition().getX() + " y = "+ani.getPosition().getY());
-							}else {
+							else
 								ani.seNourrir(anj);
-								bw.write("anj est etre omnivore, il est "+anj.getClass().getName());
-								bw.newLine();
-								bw.write("La position de celui qui a mangé est x = "+ani.getPosition().getX() + " y = "+ani.getPosition().getY());
-							}
 						}else{
-							if(anj.isCarnivore()) {
+							if(anj.isCarnivore())
 								ani.seNourrir(anj);
-								bw.write("La position de celui qui a mangé est x = "+ani.getPosition().getX() + " y = "+ani.getPosition().getY());
-							}else {
+							else
 								anj.seNourrir(ani);
-								bw.write("ani est etre omnivore, il est "+ani.getClass().getName());
-								bw.newLine();
-								bw.write("La position de celui qui a mangé est x = "+anj.getPosition().getX() + " y = "+ani.getPosition().getY());
-							}
 						}
 					}
 				}
@@ -136,7 +91,6 @@ public class Jeu {
 
 			if(a.proche_nourriture(Eau.getPosition())) {
 				a.boire();
-				bw.write("Boire quantit = " +Eau.getQuantite());
 				if (Eau.getQuantite() == 0)
 					Eau.disparaitre();
 			}
@@ -146,6 +100,7 @@ public class Jeu {
 	}
 	
 	public void lancer() {
+		//On crée les différents éléments du jeu.
 		for(int i = 0; i < Options.getNbCarn(); i++)
 			new Carnivore();
 		for(int i = 0; i < Options.getNbHerbv(); i++)
@@ -159,10 +114,6 @@ public class Jeu {
 
 		for (int i = 0; i < Options.getQHerbE(); i++)
 			new HerbeEmpoisonnee().setPosition(new Position((int)(Math.random()*(jungle.getWidth())), (int)(Math.random()*(jungle.getHeight()))));
-
-		//Eau.setPosition(new Position(960, 540));
-		//Eau.setQuantite(100);
-		//Eau.setEau_is_suffisant(true);
 
 		ArrayList<Animal<?>> coll_anim = Animal.getCollec_anim();
 

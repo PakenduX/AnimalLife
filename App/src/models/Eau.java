@@ -26,9 +26,7 @@ public class Eau {
 	public static boolean isEau_is_suffisant() {
 		return eau_is_suffisant;
 	}
-	public static void setEau_is_suffisant(boolean b){
-		eau_is_suffisant = b;
-	}
+
 	public static void disparaitre(){
 		eau_is_suffisant = false;
 	}

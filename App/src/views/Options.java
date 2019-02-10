@@ -41,8 +41,6 @@ public class Options extends JFrame implements ActionListener {
         JLabel nbOmn_label = new JLabel("Nombre d'omnivore :");
         JLabel qHerbN_label = new JLabel("Qtité d'herbe normale :");
         JLabel qHerbE_label = new JLabel("Qtité d'herbe empoisonnée:");
-        //JLabel qEau_label = new JLabel("Quantité d'eau :");
-        //JLabel en_l = new JLabel("en litres ");
 
         //Les champs de saisie
         nbCarn_field = new JTextField();
@@ -50,37 +48,38 @@ public class Options extends JFrame implements ActionListener {
         nbOmn_field = new JTextField();
         qHerbN_field = new JTextField();
         qHerbE_field = new JTextField();
-        //JTextField qEau_field = new JTextField();
 
         //Bouton lancer
         JButton lancer = new JButton("Lancer");
 
         //Positionnement
-        Font f = new Font("Arial", Font.BOLD, 40);
-        titre.setFont(new Font("Arial", Font.BOLD, 40));
-        titre.setBounds(10, 10, 1000, 100);
+        Color c = Color.CYAN;
+        Font f = new Font("Arial", Font.BOLD, 18);
+        titre.setFont(new Font("Arial", Font.BOLD, 30));
+        titre.setForeground(c);
+        titre.setBounds(500, 250, 1700, 100);
         nbCarn_label.setFont(f);
-        nbCarn_label.setBounds(10, 100, 230, 30);
-        nbCarn_field.setBounds(240, 100, 110, 30);
+        nbCarn_label.setForeground(c);
+        nbCarn_label.setBounds(600, 400, 230, 30);
+        nbCarn_field.setBounds(900, 400, 110, 30);
         nbHerbv_label.setFont(f);
-        nbHerbv_label.setBounds(10, 150, 230, 30);
-        nbHerbv_field.setBounds(240, 150, 110, 30);
+        nbHerbv_label.setForeground(c);
+        nbHerbv_label.setBounds(600, 450, 230, 30);
+        nbHerbv_field.setBounds(900, 450, 110, 30);
         nbOmn_label.setFont(f);
-        nbOmn_label.setBounds(10, 200, 230, 30);
-        nbOmn_field.setBounds(240, 200, 110, 30);
+        nbOmn_label.setForeground(c);
+        nbOmn_label.setBounds(600, 500, 230, 30);
+        nbOmn_field.setBounds(900, 500, 110, 30);
         qHerbN_label.setFont(f);
-        qHerbN_label.setBounds(10, 250, 230, 30);
-        qHerbN_field.setBounds(240, 250, 110, 30);
+        qHerbN_label.setForeground(c);
+        qHerbN_label.setBounds(600, 550, 230, 30);
+        qHerbN_field.setBounds(900, 550, 110, 30);
         qHerbE_label.setFont(f);
-        qHerbE_label.setBounds(10, 300, 230, 30);
-        qHerbE_field.setBounds(240, 300, 110, 30);
-        //qEau_label.setFont(f);
-        //qEau_label.setBounds(10, 300, 230, 30);
-        //qEau_field.setBounds(240, 300, 110, 30);
-        //en_l.setFont(f);
-        //en_l.setBounds(360, 300, 110, 30);
+        qHerbE_label.setForeground(c);
+        qHerbE_label.setBounds(600, 600, 230, 30);
+        qHerbE_field.setBounds(900, 600, 110, 30);
 
-        lancer.setBounds(550, 420, 110, 30);
+        lancer.setBounds(800, 750, 300, 30);
 
         panneau_option.add(titre);
         panneau_option.add(nbCarn_label);
@@ -93,9 +92,6 @@ public class Options extends JFrame implements ActionListener {
         panneau_option.add(qHerbN_field);
         panneau_option.add(qHerbE_label);
         panneau_option.add(qHerbE_field);
-        //this.add(qEau_label);
-        //this.add(qEau_field);
-        //this.add(en_l);
         panneau_option.add(lancer);
         this.setContentPane(panneau_option);
 
